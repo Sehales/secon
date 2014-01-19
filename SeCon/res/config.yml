@@ -1,0 +1,33 @@
+#SeCon config
+
+database:
+  type: mysql
+  mysql:
+    address: localhost
+    prefix: 'secon_'
+    name: database
+    port: 3306
+    user: user
+    password: password
+
+support:
+  towny:
+    enabled: false
+  mysql:
+    enabled: false
+
+#self explaining
+command-menu:
+  cmd-item:
+    secon:
+      id: 35
+      damage-value: 5
+    bukkit: 
+      id: 35
+      damage-value: 3
+    marked:
+      id: 35
+      damage-value: 15
+      
+#do not edit:
+config-file-version: 1

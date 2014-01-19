@@ -1,0 +1,76 @@
+#language file explanation
+#if you want to change something be sure to follow the YAML standart
+#please contact support@sehales.net or write a comment on bukkit for information, support or needed stuff related to this file or messages of SeCon
+help:
+  standart-head: <aqua><strikethrough>-----------------<resettext> <gold><command> <aqua><strikethrough>-----------------
+  secon:
+    help-text:
+      addon-command: <darkaqua>/secon addon|a [command]<aqua> - secon addon management commands
+      plugin-command: <darkaqua>/secon plugin|p [command]<aqua> - standart bukkit plugin management commands
+      reload-command: <darkaqua>/secon reload<aqua> - reload all config files
+      commandmenu-command: <darkaqua>/secon commandmenu|cm<aqua> - a menu with some information about registered commands
+      commands-command: <darkaqua>/secon commands|c<aqua> - a list of all registered commands
+    addon:
+      load: <darkaqua>/secon addon|a load|l [addonname]<aqua> - load the addon with the given file name
+      unload: <darkaqua>/secon addon|a unload|u [addonname]<aqua> - unload the addon with the given name
+      reload: <darkaqua>/secon addon|a reload|r [addonname]<aqua> - reload the addon with the given name
+      load-all: <darkaqua>/secon addon|a loadall|la<aqua> - load all addons
+      unload-all: <darkaqua>/secon addon|a unloadall|ua<aqua> - unload all addons
+      reload-all: <darkaqua>/secon addon|a reloadall|ra<aqua> - reload all addons
+      list: <darkaqua>/secon addon|a list|li<aqua> - get a list of all addons
+    plugin:
+      enable: <darkaqua>/secon plugin|p enable|e [plugin] <aqua>- activate the chosen plugin
+      disable: <darkaqua>/secon plugin|p disable|d [plugin] <aqua>- deactivate the chosen plugin
+      reload: <darkaqua>/secon plugin|p reload|r [plugin] <aqua>- reload the chosen plugin
+      reload-all: <darkaqua>/secon plugin|p reloadall|ra <aqua>- reload all plugins
+      load: <darkaqua>/secon plugin|p load|l [plugin] <aqua>- load a new plugin into the server
+info:
+  global:
+    you-cannot-use-this: '<gold>You can''t use this!'
+    no-permission: '<red>You don''t have permission for: <permission>'
+    wrong-arguments: <red>Wrong arguments!
+    player-not-exist: <red><player> does not exist!
+    not-online: '<gold><player> isn''t online'
+  plugins:
+    not-enabled: <gold><plugin> is not enabled!
+  secon:
+    paged-menu:
+      name: <blue>Menu - <player>
+      buttons:
+        next-page:
+          label: <green>next page
+          text: <darkaqua>Go to the next page.
+        previous-page:
+          label: <red>previous page
+          text: <darkaqua>Go to the previous page.
+    command-menu:
+      name: <blue>Command menu - <player>
+      command-item:
+        label-secon: '<gold>[SC] <grey><command>'
+        label-bukkit: '<blue>[BU] <grey><command>'
+        text: <darkaqua>Click for more info!
+      default-text-prefix: <darkaqua>
+      button-labels:
+        help: <gold>Help
+        aliases: <gold>Aliases
+        permission: <gold>Permission
+        additional-permissions: <gold>Additional permissions
+    reload:
+      reloading-message: <gold>started reloading config files
+      reloaded-message: <gold>config files has been reloaded
+    addon:
+      load-message: <gold><addon> has been loaded
+      unload-message: <gold><addon> has been unloaded
+      reload-message: <gold><addon> has been reloaded
+      load-all-message: <gold>All addons have been loaded
+      unload-all-message: <gold>All addons have been unloaded
+      reload-all-message: <gold>All addons have been reloaded
+    plugin:
+      enable-message: <gold><plugin> has been enabled
+      disable-message: <gold><plugin> has been disabled
+      reload-message: <gold><plugin> has been reloaded
+      reload-all-message: <gold>All plugins have been reloaded
+      load-message: <gold><plugin> has been integrated into the server
+
+#do not edit:
+config-file-version: 1

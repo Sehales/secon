@@ -1,0 +1,14 @@
+name: SeCon
+main: net.sehales.secon.SeCon
+version: 1.0.0
+author: Sehales
+website: http://sehales.net
+#yes I know that SeCon itself isn't using ProtocolLib and Factions....
+softdepend: [Vault,VanishNoPacket,Towny,Factions,TagAPI,ProtocolLib]
+commands:
+  secon:
+    aliases: [sc]
+    usage: /<command>
+  scfakecommand:
+    aliases: []
+    usage: /<command>

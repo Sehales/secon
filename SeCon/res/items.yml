@@ -1,0 +1,18 @@
+#you can define as many custom items as you want
+#just do it like that:
+examplepickaxe:
+  id: 278
+  damage: 500
+  amount: 10
+  name: '<gold>That is my name!'
+  lore:
+    - <red>That is my first line
+    - <blue>and the second one
+    - '<green>and so on...'
+  enchantments:
+    - SILK_TOUCH:1
+    - DURABILITY:10
+    - DIG_SPEED:10
+    
+#do not edit:
+config-file-version: 1
