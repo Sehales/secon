@@ -214,7 +214,6 @@ public class MySQLPlayerFactory implements PlayerFactory {
             synchronized (db.getConnection()) {
                 saveData.execute();
             }
-            saveData.close();
         } catch (SQLException e) {
             throw new PlayerSaveException(String.format("Failed to save data for player '%s'", player.getName()));
         }
@@ -224,7 +223,6 @@ public class MySQLPlayerFactory implements PlayerFactory {
                 synchronized (db.getConnection()) {
                     deleteKeys.execute();
                 }
-                
             } catch (SQLException e) {
                 throw new PlayerSaveException(String.format("Failed to delete obsolete keys for player '%s'. List of obsolete keys: %s", player.getName(), player.getRemovedDataKeys().toString()));
             }
