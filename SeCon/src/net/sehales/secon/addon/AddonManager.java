@@ -203,7 +203,10 @@ public class AddonManager {
             tempFolder.mkdirs();
         }
         
-        sendMessage(infoReceiver, lang.ADDON_LOADING_ADDONS.replace("<folder>", addonFolder.getAbsolutePath()));
+        // sendMessage(infoReceiver,
+        // lang.ADDON_LOADING_ADDONS.replace("<folder>",
+        // addonFolder.getAbsolutePath()));
+        sendMessage(infoReceiver, lang.ADDON_LOADING_ADDONS);
         if (!addonFolder.canRead()) {
             sendMessage(infoReceiver, lang.CANT_READ_FILE.replace("<file>", addonFolder.getAbsolutePath()));
             return;
@@ -235,7 +238,10 @@ public class AddonManager {
             enableAddon(infoReceiver, addon);
         }
         
-        sendMessage(infoReceiver, lang.ADDON_LOADED_ADDONS.replace("<folder>", addonFolder.getAbsolutePath()));
+        // sendMessage(infoReceiver,
+        // lang.ADDON_LOADED_ADDONS.replace("<folder>",
+        // addonFolder.getAbsolutePath()));
+        sendMessage(infoReceiver, lang.ADDON_LOADED_ADDONS);
     }
     
     private void sendMessage(CommandSender receiver, String message) {

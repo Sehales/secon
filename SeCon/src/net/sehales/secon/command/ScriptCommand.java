@@ -9,6 +9,7 @@ import net.sehales.secon.SeCon;
 import net.sehales.secon.utils.MiscUtils;
 import net.sehales.secon.utils.mc.ChatUtils;
 import net.sehales.secon.utils.mc.ItemUtils;
+import net.sehales.secon.utils.string.StringUtils;
 
 import org.bukkit.command.BlockCommandSender;
 import org.bukkit.command.CommandSender;
@@ -113,6 +114,7 @@ public class ScriptCommand extends TypedCommand {
         bindings.put("ChatUtils", new ChatUtils());
         bindings.put("MiscUtils", new MiscUtils());
         bindings.put("ItemUtils", new ItemUtils());
+        bindings.put("StringUtils", new StringUtils());
     }
     
 }

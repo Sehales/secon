@@ -4,7 +4,6 @@ package net.sehales.secon.utils.mc;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.regex.Pattern;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -14,7 +13,6 @@ import org.bukkit.entity.Player;
 
 public class ChatUtils {
     
-    private static final Pattern       PATTERN_ON_SPACE = Pattern.compile(" ", Pattern.LITERAL);
     private static Map<String, String> colorReplaceMap  = new HashMap<>();
     private static Map<String, String> formatReplaceMap = new HashMap<>();
     private static Map<String, String> markupReplaceMap = new HashMap<>();
@@ -169,36 +167,6 @@ public class ChatUtils {
         message = parseMarkupCodes(message);
         
         return message;
-    }
-    
-    /**
-     * get an array splitted at spaces from a string
-     * 
-     * @param string
-     * @return a string-array
-     */
-    public static String[] getArrayOutOfString(String string) {
-        return PATTERN_ON_SPACE.split(string);
-    }
-    
-    public static String[] getArrayOutOfString(String string, String splitRegEx) {
-        return string.split(splitRegEx);
-    }
-    
-    /**
-     * get a string out of the given array, starting at the given position
-     * 
-     * @param array
-     * @param position
-     * @return string
-     */
-    public static String getStringOfArray(String[] array, int position) {
-        StringBuilder sb = new StringBuilder();
-        for (int i = position; i < array.length; i++) {
-            sb.append(array[i]);
-            sb.append(" ");
-        }
-        return sb.substring(0, sb.length() - 1);
     }
     
     /**
