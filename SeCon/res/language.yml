@@ -6,7 +6,7 @@ global:
   file-not-found: '<red>File not found: <grey>''<file>'''
   cant-read-file: '<red>Not allowed to read file ''<file>'''
   exception-occured: '<red>An exception occured while execution, see console for more details: <grey><name>: <message>'
-  invalid-class-type: '<red>Can't load addon ''<addonname>''. Invalid class type <grey>''<class>'''
+  invalid-class-type: '<red>Can''t load addon ''<addonname>''. Invalid class type <grey>''<class>'''
   config-saved: '<gold>Config file saved: <green>''<filename>'''
   config-loaded: '<gold>Config file loaded: <green>''<filename>'''
   reload-started: '<gold>SeCon is reloading...'
