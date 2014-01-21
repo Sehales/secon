@@ -1,49 +1,49 @@
 global:
-  standard-cmdhelp-head: <aqua><strikethrough>---------------<resettext> <gold><command> <aqua><strikethrough>---------------
-  argument-cant-be-null: global.argument-cant-be-null
+  standard-cmdhelp-head: '<aqua><strikethrough>---------------<resettext> <gold><command> <aqua><strikethrough>---------------'
+  argument-cant-be-null: '<red>Missing or invalid argument. Argument can''t be null.'
   no-permission: '<red>You don''t have permission for: <permission>'
   you-cant-use-this: '<red>You can''t use this!'
-  file-not-found: global.file-not-found
-  cant-read-file: global.cant-read-file
-  exception-occured: global.exception-occured
-  invalid-class-type: global.invalid-class-type
-  config-saved: global.config-saved
-  config-loaded: global.config-loaded
-  reload-started: <gold>SeCon is reloading...
-  reload-finished: <gold>SeCon has been reloaded!
+  file-not-found: '<red>File not found: <grey>''<file>'''
+  cant-read-file: '<red>Not allowed to read file ''<file>'''
+  exception-occured: '<red>An exception occured while execution, see console for more details: <grey><name>: <message>'
+  invalid-class-type: '<red>Can't load addon ''<addonname>''. Invalid class type <grey>''<class>'''
+  config-saved: '<gold>Config file saved: <green>''<filename>'''
+  config-loaded: '<gold>Config file loaded: <green>''<filename>'''
+  reload-started: '<gold>SeCon is reloading...'
+  reload-finished: '<gold>SeCon has been reloaded!'
 
 addon-manager:
-  loading-addons: addon-manager.loading-addons
-  loaded-addons: addon-manager.laoded-addons
-  already-loaded: addon-manager.already-loaded
-  failed-to-load: addon-manager.failed-to-load
-  loaded-addon: addon-manager.loaded-addon
-  already-enabled: addon-manager.already-enabled
-  enabled-addon: addon-manager.enabled-addon
-  already-disabled: addon-manager.already-disabled
-  disabled-addon: addon-manager.disabled-addon
-  unloading-addons: addon-manager.unloading-addons
-  unloaded-addon: addon-manager.unloaded-addon
-  unloaded-addons: addon-manager.unloaded-addons
+  loading-addons: '<gold>Loading addons...'
+  loaded-addons: '<gold>Addons has been loaded'
+  already-loaded: '<green><name> <red>is already loaded'
+  failed-to-load: '<red>Failed to load <green><name>'
+  loaded-addon: '<green><name> <gold>has been loaded'
+  already-enabled: '<green><name> <red>is already enabled'
+  enabled-addon: '<green><name> <gold>has been enabled'
+  already-disabled: '<green><name> <red>is already disabled'
+  disabled-addon: '<green><name> <gold>has been disabled'
+  unloading-addons: '<gold>Unloading addons...'
+  unloaded-addon: '<green><name> <gold>unloaded'
+  unloaded-addons: '<gold>Addons has been unloaded'
   
 cmd-help:
-  cmd-addon: <darkaqua>/secon addon|a [command]<aqua> - secon addon management commands
-  cmd-reload: <darkaqua>/secon reload<aqua> - reload all config files and script commands
-  cmd-commands: <darkaqua>/secon commands|c<aqua> - a list of all registered commands
-  cmd-commandmenu: <darkaqua>/secon commandmenu|cm<aqua> - a menu with some information about registered commands
+  cmd-addon: '<darkaqua>/secon addon|a [command]<aqua> - secon addon management commands'
+  cmd-reload: '<darkaqua>/secon reload<aqua> - reload all config files and script commands'
+  cmd-commands: '<darkaqua>/secon commands|c<aqua> - a list of all registered commands'
+  cmd-commandmenu: '<darkaqua>/secon commandmenu|cm<aqua> - a menu with some information about all commands'
   addon:
-    enable: cmd-help.addon.enable
-    disable: cmd-help.addon.disable
-    soft-reload: cmd-help.addon.soft-reload
-    soft-reload-all: cmd-help.addon.soft-reload-all
-    load: <darkaqua>/secon addon|a load|l [addonname]<aqua> - load the addon with the given file name
-    load-all: <darkaqua>/secon addon|a loadall|la<aqua> - load all addons
-    unload: <darkaqua>/secon addon|a unload|u [addonname]<aqua> - unload the addon with the given name
-    unload-all: <darkaqua>/secon addon|a unloadall|ua<aqua> - unload all addons
-    reload: <darkaqua>/secon addon|a reload|r [addonname]<aqua> - reload the addon with the given name
-    reload-all: <darkaqua>/secon addon|a reloadall|ra<aqua> - reload all addons
-    list: <darkaqua>/secon addon|a list|li<aqua> - get a list of all addons
-    menu: cmd-help.addon.menu
+    enable: '<darkaqua>/secon addon|a enable|e [addonname]<aqua> - enable the addon with the given name'
+    disable: '<darkaqua>/secon addon|a disable|d [addonname]<aqua> - disable the addon with the given name'
+    soft-reload: '<darkaqua>/secon addon|a soft-reload|sr [addonname]<aqua> - disable and enable an addon'
+    soft-reload-all: 'cmd-help.addon.soft-reload-all - disable and enable all addons'
+    load: '<darkaqua>/secon addon|a load|l [filename]<aqua> - load the addon with the given file name'
+    load-all: '<darkaqua>/secon addon|a loadall|la<aqua> - load all addons'
+    unload: '<darkaqua>/secon addon|a unload|u [addonname]<aqua> - unload the addon with the given name'
+    unload-all: '<darkaqua>/secon addon|a unloadall|ua<aqua> - unload all addons'
+    reload: '<darkaqua>/secon addon|a reload|r [addonname]<aqua> - reload the addon with the given name'
+    reload-all: '<darkaqua>/secon addon|a reloadall|ra<aqua> - reload all addons'
+    list: '<darkaqua>/secon addon|a list|li<aqua> - get a list of all addons'
+    menu: '<darkaqua>/secon addon|a menu|m<aqua> - a menu for controlling addons and some information about them'
 
 paged-menu:
   name: paged-menu.name

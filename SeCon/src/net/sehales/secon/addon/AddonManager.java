@@ -64,7 +64,7 @@ public class AddonManager {
         
         Class<?> addonClass = loader.loadClass(desc.getMainClassName());
         if (addonClass.getSuperclass() != Addon.class) {
-            sendMessage(infoReceiver, lang.INVALID_CLASS_TYPE.replace("<classname>", addonClass.getSuperclass().getCanonicalName()));
+            sendMessage(infoReceiver, lang.INVALID_CLASS_TYPE.replace("<class>", addonClass.getSuperclass().getCanonicalName()).replace("<addonname>", desc.getName()));
             return null;
         }
         
@@ -131,18 +131,18 @@ public class AddonManager {
     
     public Addon loadAddon(CommandSender infoReceiver, File rawFile) {
         if (!rawFile.exists()) {
-            sendMessage(infoReceiver, lang.FILE_NOT_FOUND.replace("<filename>", rawFile.getAbsolutePath()));
+            sendMessage(infoReceiver, lang.FILE_NOT_FOUND.replace("<file>", rawFile.getAbsolutePath()));
             return null;
         }
         
         if (!rawFile.canRead()) {
-            sendMessage(infoReceiver, lang.CANT_READ_FILE.replace("<filename>", rawFile.getAbsolutePath()));
+            sendMessage(infoReceiver, lang.CANT_READ_FILE.replace("<file>", rawFile.getAbsolutePath()));
             return null;
         }
         
         File addonFile = new File(tempFolder, rawFile.getName().replace(JAR_FILE_SUFFIX, "-" + System.currentTimeMillis() + JAR_FILE_SUFFIX));
         if (!FileUtil.copy(rawFile, addonFile)) {
-            sendMessage(infoReceiver, lang.FILE_NOT_FOUND.replace("<filename>", addonFile.getAbsolutePath()));
+            sendMessage(infoReceiver, lang.FILE_NOT_FOUND.replace("<file>", addonFile.getAbsolutePath()));
             return null;
         }
         
@@ -182,7 +182,7 @@ public class AddonManager {
             }
             
         } catch (IOException | InvalidAddonDescriptionException | ReflectiveOperationException | IllegalArgumentException | SecurityException e) {
-            sendMessage(infoReceiver, lang.EXCEPTION_OCCURED.replace("<name>", e.getClass().getSimpleName()));
+            sendMessage(infoReceiver, lang.EXCEPTION_OCCURED.replace("<name>", e.getClass().getSimpleName()).replace("<message>", e.getLocalizedMessage()));
             e.printStackTrace();
             return null;
         }
@@ -205,7 +205,7 @@ public class AddonManager {
         
         sendMessage(infoReceiver, lang.ADDON_LOADING_ADDONS.replace("<folder>", addonFolder.getAbsolutePath()));
         if (!addonFolder.canRead()) {
-            sendMessage(infoReceiver, lang.CANT_READ_FILE.replace("<filename>", addonFolder.getAbsolutePath()));
+            sendMessage(infoReceiver, lang.CANT_READ_FILE.replace("<file>", addonFolder.getAbsolutePath()));
             return;
         }
         

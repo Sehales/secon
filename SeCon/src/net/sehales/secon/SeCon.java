@@ -113,6 +113,18 @@ public class SeCon extends JavaPlugin {
     
     @Override
     public void onEnable() {
+        this.pluginUtils = new PluginUtils(this);
+        playerManager = new PlayerManager(this);
+        
+        addonManager = new AddonManager(this, addonFolder);
+        addonManager.loadAddons(null);
+        
+        initListener();
+        getCommand("secon").setExecutor(new CmdSeCon(this));
+    }
+    
+    @Override
+    public void onLoad() {
         secon = this;
         
         if (new File(getDataFolder(), "debug.enabled").exists()) {
@@ -173,8 +185,6 @@ public class SeCon extends JavaPlugin {
             
         }
         
-        this.pluginUtils = new PluginUtils(this);
-        
         switch (config.DB_TYPE.toLowerCase()) {
             case "mysql": {
                 try {
@@ -190,19 +200,11 @@ public class SeCon extends JavaPlugin {
             }
         }
         
-        playerManager = new PlayerManager(this);
-        
         try {
             commandManager = new CommandManager(this);
             commandManager.loadScriptCommands(scriptFolder);
         } catch (SecurityException | IllegalArgumentException | NoSuchFieldException | IllegalAccessException e) {
             e.printStackTrace();
         }
-        
-        addonManager = new AddonManager(this, addonFolder);
-        addonManager.loadAddons(null);
-        
-        initListener();
-        getCommand("secon").setExecutor(new CmdSeCon(this));
     }
 }

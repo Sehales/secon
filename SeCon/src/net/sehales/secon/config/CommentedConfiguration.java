@@ -92,7 +92,7 @@ public class CommentedConfiguration extends YamlConfiguration {
             e.printStackTrace();
         }
         
-        // if there's comments to add and it saved fine, we need to add comments
+        // if there are comments to add and it saved fine, we need to add comments
         if (!comments.isEmpty() && saved) {
             // String array of each line in the config file
             String[] yamlContents = FileUtils.convertToString(file, "UTF-8").split("[" + System.getProperty("line.separator") + "]");

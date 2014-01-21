@@ -43,7 +43,7 @@ public class CmdSeCon implements CommandExecutor {
         mList.add(lang.HELP_ADDON_RELOAD);
         mList.add(lang.HELP_ADDON_RELOAD_ALL);
         mList.add(lang.HELP_ADDON_LIST);
-        mList.add(lang.HELP_ADDON_MENU);
+        // mList.add(lang.HELP_ADDON_MENU);
         ChatUtils.sendFormattedMessage(sender, mList);
     }
     
@@ -53,7 +53,7 @@ public class CmdSeCon implements CommandExecutor {
         mList.add(lang.HELP_SECON_ADDON);
         mList.add(lang.HELP_SECON_RELOAD);
         mList.add(lang.HELP_SECON_COMMANDS);
-        mList.add(lang.HELP_SECON_COMMANDMENU);
+        // mList.add(lang.HELP_SECON_COMMANDMENU);
         ChatUtils.sendFormattedMessage(sender, mList);
     }
     
@@ -86,6 +86,7 @@ public class CmdSeCon implements CommandExecutor {
                     processCommandMenuCmd(sender, args);
                     break;
                 }
+                
                 default: {
                     displaySeConHelp(sender);
                     break;
@@ -103,15 +104,15 @@ public class CmdSeCon implements CommandExecutor {
         }
     }
     
-    private void processAddonMenuCmd(CommandSender sender, String[] args) {
-        if (hasPermission(sender, "secon.command.secon.addon-menu", true)) {
-            
-        }
-    }
+    // private void processAddonMenuCmd(CommandSender sender, String[] args) {
+    // if (hasPermission(sender, "secon.command.secon.addon-menu", true)) {
+    //
+    // }
+    // }
     
     private void processCommandMenuCmd(CommandSender sender, String[] args) {
         if (hasPermission(sender, "secon.command.secon.command-menu", true)) {
-            
+            sender.sendMessage("Sorry, the command menu is currently not available. :(");
         }
     }
     

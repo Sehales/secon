@@ -62,6 +62,10 @@ public class Config {
         return configFile;
     }
     
+    public int getConfigVersion() {
+        return getInt("config-file-version", 1);
+    }
+    
     public Configuration getDefaultConfig() {
         return defaultConfig;
     }
@@ -117,7 +121,7 @@ public class Config {
     public boolean loadAndInform() {
         boolean loaded = load();
         if (loaded) {
-            ChatUtils.sendFormattedMessage(Bukkit.getConsoleSender(), SeCon.getInstance().getLang().CONFIG_FILE_LOADED.replace("<name>", configFile.getName()));
+            ChatUtils.sendFormattedMessage(Bukkit.getConsoleSender(), SeCon.getInstance().getLang().CONFIG_FILE_LOADED.replace("<filename>", configFile.getName()));
         }
         return loaded;
     }
@@ -167,5 +171,9 @@ public class Config {
     
     public void set(String path, Object obj) {
         config.set(path, obj);
+    }
+    
+    public void setConfigVersion(int version) {
+        set("config-file-version", version);
     }
 }

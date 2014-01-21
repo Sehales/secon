@@ -23,8 +23,6 @@ public class SeConConfig extends Config {
     public int     CMDMENU_CMDITEM_MARKED_ITEM_DAMAGE;
     public int     CMDMENU_CMDITEM_MARKED_ITEM_ID;
     
-    public int     CONFIG_VERSION;
-    
     public SeConConfig(File configFile) {
         super(configFile);
     }
@@ -39,8 +37,6 @@ public class SeConConfig extends Config {
         MYSQL_DATABASE_NAME = getString("database.mysql.name");
         MYSQL_SERVER_PORT = getInt("database.mysql.port");
         MYSQL_SERVER_ADDRESS = getString("database.mysql.address");
-        
-        CONFIG_VERSION = getInt("config-file-version");
         
         SUPPORT_TOWNY_ENABLED = getBoolean("support.towny.enabled");
         SUPPORT_MYSQL_ENABLED = getBoolean("support.mysql.enabled");
