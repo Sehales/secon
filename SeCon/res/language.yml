@@ -34,8 +34,8 @@ cmd-help:
   addon:
     enable: '<darkaqua>/secon addon|a enable|e [addonname]<aqua> - enable the addon with the given name'
     disable: '<darkaqua>/secon addon|a disable|d [addonname]<aqua> - disable the addon with the given name'
-    soft-reload: '<darkaqua>/secon addon|a soft-reload|sr [addonname]<aqua> - disable and enable an addon'
-    soft-reload-all: 'cmd-help.addon.soft-reload-all - disable and enable all addons'
+    soft-reload: '<darkaqua>/secon addon|a softreload|sr [addonname]<aqua> - disable and enable an addon'
+    soft-reload-all: '<darkaqua>/secon addon|a softreloadall|sra<aqua> - disable and enable all addons'
     load: '<darkaqua>/secon addon|a load|l [filename]<aqua> - load the addon with the given file name'
     load-all: '<darkaqua>/secon addon|a loadall|la<aqua> - load all addons'
     unload: '<darkaqua>/secon addon|a unload|u [addonname]<aqua> - unload the addon with the given name'

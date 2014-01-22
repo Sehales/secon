@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.zip.ZipEntry;
@@ -79,7 +80,7 @@ public class AddonManager {
         return addon;
     }
     
-    public boolean disableAddon(CommandSender infoReceiver, Addon addon) {
+    public synchronized boolean disableAddon(CommandSender infoReceiver, Addon addon) {
         if (addon == null) {
             sendMessage(infoReceiver, lang.ARGUMENT_CANT_BE_NULL);
             return false;
@@ -117,7 +118,7 @@ public class AddonManager {
         return true;
     }
     
-    public boolean enableAddon(CommandSender infoReceiver, String addonName) {
+    public synchronized boolean enableAddon(CommandSender infoReceiver, String addonName) {
         return enableAddon(infoReceiver, getAddon(addonName));
     }
     
@@ -129,7 +130,11 @@ public class AddonManager {
         return addonFolder;
     }
     
-    public Addon loadAddon(CommandSender infoReceiver, File rawFile) {
+    public synchronized Collection<Addon> getAddons() {
+        return addonMap.values();
+    }
+    
+    public synchronized Addon loadAddon(CommandSender infoReceiver, File rawFile) {
         if (!rawFile.exists()) {
             sendMessage(infoReceiver, lang.FILE_NOT_FOUND.replace("<file>", rawFile.getAbsolutePath()));
             return null;
@@ -254,10 +259,10 @@ public class AddonManager {
         }
     }
     
-    public void unloadAddon(CommandSender infoReceiver, Addon addon) {
+    public synchronized boolean unloadAddon(CommandSender infoReceiver, Addon addon) {
         if (addon == null) {
             sendMessage(infoReceiver, lang.ARGUMENT_CANT_BE_NULL);
-            return;
+            return false;
         }
         
         try {
@@ -265,30 +270,36 @@ public class AddonManager {
         } catch (Exception e) {
             sendMessage(infoReceiver, lang.EXCEPTION_OCCURED.replace("<name>", e.getClass().getSimpleName()));
             e.printStackTrace();
+            return false;
         }
         
-        unloadAddonOnly(infoReceiver, addon);
+        return unloadAddonOnly(infoReceiver, addon);
     }
     
-    public void unloadAddon(CommandSender infoReceiver, String addonName) {
-        unloadAddon(infoReceiver, getAddon(addonName));
+    public boolean unloadAddon(CommandSender infoReceiver, String addonName) {
+        return unloadAddon(infoReceiver, getAddon(addonName));
     }
     
-    public void unloadAddonOnly(CommandSender infoReceiver, Addon addon) {
+    public boolean unloadAddonOnly(CommandSender infoReceiver, Addon addon) {
         if (addon == null) {
             sendMessage(infoReceiver, lang.ARGUMENT_CANT_BE_NULL);
-            return;
+            return false;
         }
-        
-        addon.onUnload();
+        try {
+            addon.onUnload();
+        } catch (Exception e) {
+            sendMessage(infoReceiver, lang.EXCEPTION_OCCURED.replace("<name>", e.getClass().getSimpleName()));
+            e.printStackTrace();
+        }
         priorityList.remove(addon);
         addonMap.remove(addon.getName());
         addon.getAddonFile().delete();
         sendMessage(infoReceiver, lang.ADDON_UNLOADED.replace("<name>", addon.getName()));
+        return true;
     }
     
-    public void unloadAddonOnly(CommandSender infoReceiver, String addonName) {
-        unloadAddonOnly(infoReceiver, getAddon(addonName));
+    public boolean unloadAddonOnly(CommandSender infoReceiver, String addonName) {
+        return unloadAddonOnly(infoReceiver, getAddon(addonName));
     }
     
     public void unloadAddons(CommandSender infoReceiver) {

@@ -133,6 +133,7 @@ public class CommandManager {
                 cmd.setDescription(d.getCmdDesc());
                 cmd.setOverrideHelp(d.isOverridingHelp());
                 cmd.setPermission(d.getPermission());
+                cmd.setType(d.getCmdType());
                 
                 if (registerCommand(FALLBACK_PREFIX, cmd)) {
                     cmdList.add(cmd);

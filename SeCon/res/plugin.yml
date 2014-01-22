@@ -10,6 +10,3 @@ commands:
   secon:
     aliases: [sc]
     usage: /<command>
-  scfakecommand:
-    aliases: []
-    usage: /<command>

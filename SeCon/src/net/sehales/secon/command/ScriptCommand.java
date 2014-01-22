@@ -115,6 +115,7 @@ public class ScriptCommand extends TypedCommand {
         bindings.put("MiscUtils", new MiscUtils());
         bindings.put("ItemUtils", new ItemUtils());
         bindings.put("StringUtils", new StringUtils());
+        // bindings.put("FontUtils", new TextUtils());
     }
     
 }

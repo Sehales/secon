@@ -116,6 +116,8 @@ public class SeCon extends JavaPlugin {
         this.pluginUtils = new PluginUtils(this);
         playerManager = new PlayerManager(this);
         
+        commandManager.loadScriptCommands(scriptFolder);
+        
         addonManager = new AddonManager(this, addonFolder);
         addonManager.loadAddons(null);
         
@@ -166,7 +168,11 @@ public class SeCon extends JavaPlugin {
             System.out.println("Begin config values!");
             try {
                 for (Field f : config.getClass().getDeclaredFields()) {
-                    System.out.println(f.getName() + " = " + f.get(config));
+                    if (f.getName().equals("MYSQL_DATABASE_PASSWORD")) {
+                        System.out.println(f.getName() + " = CENSORED, length = " + f.get(config).toString().length());
+                    } else {
+                        System.out.println(f.getName() + " = " + f.get(config));
+                    }
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -202,7 +208,6 @@ public class SeCon extends JavaPlugin {
         
         try {
             commandManager = new CommandManager(this);
-            commandManager.loadScriptCommands(scriptFolder);
         } catch (SecurityException | IllegalArgumentException | NoSuchFieldException | IllegalAccessException e) {
             e.printStackTrace();
         }

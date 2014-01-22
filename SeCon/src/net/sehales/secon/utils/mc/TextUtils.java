@@ -17,12 +17,14 @@
  */
 
 //@formatter:off
-package net.sehales.secon.utils.string;
+package net.sehales.secon.utils.mc;
 
 import java.util.LinkedList;
 
+import net.sehales.secon.utils.string.Str;
 
-public class FontWidthCalculator {
+
+public class TextUtils {
 
     public final static int chatwidth = 318; // 325
     public static String charWidthIndexIndex = " !\"#$%&'()*+,-./"
