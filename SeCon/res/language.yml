@@ -14,7 +14,7 @@ global:
 
 addon-manager:
   loading-addons: '<gold>Loading addons...'
-  loaded-addons: '<gold>Addons has been loaded'
+  loaded-addons: '<gold>Addons have been loaded'
   already-loaded: '<green><name> <red>is already loaded'
   failed-to-load: '<red>Failed to load <green><name>'
   loaded-addon: '<green><name> <gold>has been loaded'
@@ -24,7 +24,7 @@ addon-manager:
   disabled-addon: '<green><name> <gold>has been disabled'
   unloading-addons: '<gold>Unloading addons...'
   unloaded-addon: '<green><name> <gold>unloaded'
-  unloaded-addons: '<gold>Addons has been unloaded'
+  unloaded-addons: '<gold>Addons have been unloaded'
   
 cmd-help:
   cmd-addon: '<darkaqua>/secon addon|a [command]<aqua> - secon addon management commands'

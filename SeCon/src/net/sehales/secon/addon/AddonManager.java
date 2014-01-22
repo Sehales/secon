@@ -303,6 +303,7 @@ public class AddonManager {
     }
     
     public void unloadAddons(CommandSender infoReceiver) {
+        sendMessage(infoReceiver, lang.ADDON_UNLOADING_ADDONS);
         for (Addon addon : priorityList.getHighestElements()) {
             disableAddon(infoReceiver, addon);
         }
