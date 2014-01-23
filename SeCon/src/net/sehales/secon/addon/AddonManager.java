@@ -2,7 +2,6 @@
 package net.sehales.secon.addon;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.net.MalformedURLException;
@@ -10,8 +9,6 @@ import java.net.URL;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipInputStream;
 
 import net.sehales.secon.SeCon;
 import net.sehales.secon.config.LanguageConfig;
@@ -152,26 +149,26 @@ public class AddonManager {
         }
         
         try {
-            FileInputStream is = new FileInputStream(addonFile);
-            ZipInputStream zis = new ZipInputStream(is);
-            ZipEntry entry = zis.getNextEntry();
+            // FileInputStream is = new FileInputStream(addonFile);
+            // ZipInputStream zis = new ZipInputStream(is);
+            // ZipEntry entry = zis.getNextEntry();
+            //
+            // while (entry != null) {
+            // if (!entry.getName().equalsIgnoreCase("addon.yml")) {
+            // entry = zis.getNextEntry();
+            // } else {
+            // break;
+            // }
+            // }
             
-            while (entry != null) {
-                if (!entry.getName().equalsIgnoreCase("addon.yml")) {
-                    entry = zis.getNextEntry();
-                } else {
-                    break;
-                }
-            }
-            
-            AddonDescription desc = new AddonDescription(zis);
+            AddonDescription desc = new AddonDescription(addonFile);
             
             if (getAddon(desc.getName()) != null) {
                 sendMessage(infoReceiver, lang.ADDON_ALREADY_LOADED.replace("<name>", desc.getName()));
                 return null;
             }
             
-            Addon addon = createInstance(infoReceiver, new AddonDescription(zis), addonFile);
+            Addon addon = createInstance(infoReceiver, desc, addonFile);
             addon.setRawFile(rawFile);
             addon.setAddonFile(addonFile);
             addon.setSeconInstance(secon);

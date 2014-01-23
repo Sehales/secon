@@ -184,6 +184,14 @@ public class CommandManager {
                 String description = mch.description();
                 String permission = mch.permission();
                 
+                if (secon.isDebugEnabled()) {
+                    System.out.println("CommandManager.registerCommandsFromObject() before config");
+                    System.out.println("name " + cmdName);
+                    System.out.println("usage " + usage);
+                    System.out.println("description " + description);
+                    System.out.println("permission " + permission);
+                }
+                
                 String path = categoryName + DOT + cmdName;
                 String namePath = path + PATH_NAME;
                 String usagePath = path + PATH_USAGE;
@@ -207,7 +215,7 @@ public class CommandManager {
                     cmdConfig.set(usagePath, usage);
                 }
                 
-                if (cmdConfig.contains(usagePath)) {
+                if (cmdConfig.contains(descriptionPath)) {
                     description = cmdConfig.getString(descriptionPath);
                 } else {
                     cmdConfig.set(descriptionPath, description);
@@ -255,6 +263,14 @@ public class CommandManager {
                     } catch (SecurityException e) {
                         e.printStackTrace();
                     }
+                }
+                
+                if (secon.isDebugEnabled()) {
+                    System.out.println("CommandManager.registerCommandsFromObject() after config");
+                    System.out.println("name " + cmdName);
+                    System.out.println("usage " + usage);
+                    System.out.println("description " + description);
+                    System.out.println("permission " + permission);
                 }
                 
                 cmd.setAliases(aliases);
