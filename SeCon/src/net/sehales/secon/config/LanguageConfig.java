@@ -70,6 +70,7 @@ public class LanguageConfig extends Config {
     public String RELOAD_STARTED;
     public String RELOAD_FINISHED;
     public String PLAYER_NOT_FOUND;
+    public String NOT_ENOUGH_ARGUMENTS;
     
     public LanguageConfig(File configFile) {
         super(configFile);
@@ -79,6 +80,7 @@ public class LanguageConfig extends Config {
     public void initValues() {
         COMMAND_HELP_HEADER = getString("global.standard-cmdhelp-head");
         ARGUMENT_CANT_BE_NULL = getString("global.argument-cant-be-null");
+        NOT_ENOUGH_ARGUMENTS = getString("global.not-enough-arguments");
         NO_PERMISSION = getString("global.no-permission");
         YOU_CANNOT_USE_THIS = getString("global.you-cant-use-this");
         FILE_NOT_FOUND = getString("global.file-not-found");

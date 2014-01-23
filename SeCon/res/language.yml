@@ -12,6 +12,7 @@ global:
   reload-started: '<gold>SeCon is reloading...'
   reload-finished: '<gold>SeCon has been reloaded!'
   player-not-found: '<red>Can''t find player <grey>''<player>'''
+  not-enough-arguments: '<red>Not enough arguments! Type ''/<cmd> ?'' for help'
 
 addon-manager:
   loading-addons: '<gold>Loading addons...'
