@@ -11,6 +11,7 @@ global:
   config-loaded: '<gold>Config file loaded: <green>''<filename>'''
   reload-started: '<gold>SeCon is reloading...'
   reload-finished: '<gold>SeCon has been reloaded!'
+  player-not-found: '<red>Can''t find player <grey>''<player>'''
 
 addon-manager:
   loading-addons: '<gold>Loading addons...'

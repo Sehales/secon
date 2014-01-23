@@ -69,6 +69,7 @@ public class LanguageConfig extends Config {
     public String CONFIG_FILE_SAVED;
     public String RELOAD_STARTED;
     public String RELOAD_FINISHED;
+    public String PLAYER_NOT_FOUND;
     
     public LanguageConfig(File configFile) {
         super(configFile);
@@ -88,6 +89,7 @@ public class LanguageConfig extends Config {
         CONFIG_FILE_LOADED = getString("global.config-loaded");
         RELOAD_STARTED = getString("global.reload-started");
         RELOAD_FINISHED = getString("global.reload-finished");
+        PLAYER_NOT_FOUND = getString("global.player-not-found");
         
         ADDON_LOADING_ADDONS = getString("addon-manager.loading-addons");
         ADDON_LOADED_ADDONS = getString("addon-manager.loaded-addons");
