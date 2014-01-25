@@ -3,12 +3,13 @@ package net.sehales.secon.utils.plugin;
 
 import org.bukkit.entity.Player;
 import org.kitteh.vanish.VanishManager;
+import org.kitteh.vanish.VanishPerms;
 import org.kitteh.vanish.staticaccess.VanishNoPacket;
 import org.kitteh.vanish.staticaccess.VanishNotLoadedException;
 
 public class VanishUtils {
     
-    VanishManager manager;
+    private VanishManager manager;
     
     VanishUtils() {
         try {
@@ -16,6 +17,11 @@ public class VanishUtils {
         } catch (VanishNotLoadedException e) {
             e.printStackTrace();
         }
+        
+    }
+    
+    public boolean canSeeVanishedPlayers(Player player) {
+        return VanishPerms.canSeeAll(player);
     }
     
     public boolean isVanished(Player player) {

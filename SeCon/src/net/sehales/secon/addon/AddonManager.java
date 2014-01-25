@@ -173,9 +173,9 @@ public class AddonManager {
             addon.setAddonFile(addonFile);
             addon.setSeconInstance(secon);
             priorityList.add(addon, addon.getPriority());
+            addonMap.put(addon.getName(), addon);
             
             if (addon.onLoad()) {
-                addonMap.put(addon.getName(), addon);
                 sendMessage(infoReceiver, lang.ADDON_LOADED.replace("<name>", addon.getName()));
                 return addon;
             } else {
@@ -192,7 +192,7 @@ public class AddonManager {
     
     public Addon loadAddon(CommandSender infoReceiver, String fileName) {
         if (!fileName.endsWith(JAR_FILE_SUFFIX)) {
-            fileName = fileName.concat(JAR_FILE_SUFFIX);
+            fileName = fileName + JAR_FILE_SUFFIX;
         }
         
         File rawFile = new File(addonFolder, fileName);

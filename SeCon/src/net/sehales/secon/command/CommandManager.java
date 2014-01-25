@@ -169,6 +169,9 @@ public class CommandManager {
     }
     
     public synchronized List<Command> registerCommandsFromObject(String categoryName, Object obj) {
+        if (secon.isDebugEnabled()) {
+            System.out.println("BEGIN CommandManager.registerCommandsFromObject()");
+        }
         List<Command> cmdList = new ArrayList<>();
         
         Class<?> objectClass = obj.getClass();
@@ -185,11 +188,14 @@ public class CommandManager {
                 String permission = mch.permission();
                 
                 if (secon.isDebugEnabled()) {
-                    System.out.println("CommandManager.registerCommandsFromObject() before config");
-                    System.out.println("name " + cmdName);
-                    System.out.println("usage " + usage);
-                    System.out.println("description " + description);
-                    System.out.println("permission " + permission);
+                    System.out.println("BEGIN BEFORE CONFIG");
+                    System.out.println("name: " + cmdName);
+                    System.out.println("usage: " + usage);
+                    System.out.println("description: " + description);
+                    System.out.println("permission: " + permission);
+                    System.out.println("aliases: " + aliases.toString());
+                    System.out.println("add perms: " + additionalPerms.toString());
+                    System.out.println("END BEFORE CONFIG");
                 }
                 
                 String path = categoryName + DOT + cmdName;
@@ -230,7 +236,7 @@ public class CommandManager {
                 if (cmdConfig.contains(statePath)) {
                     state = CmdState.valueOf(cmdConfig.getString(statePath));
                 } else {
-                    cmdConfig.set(statePath, state);
+                    cmdConfig.set(statePath, state.toString());
                 }
                 
                 if (cmdConfig.contains(aliasesPath)) {
@@ -266,11 +272,14 @@ public class CommandManager {
                 }
                 
                 if (secon.isDebugEnabled()) {
-                    System.out.println("CommandManager.registerCommandsFromObject() after config");
-                    System.out.println("name " + cmdName);
-                    System.out.println("usage " + usage);
-                    System.out.println("description " + description);
-                    System.out.println("permission " + permission);
+                    System.out.println("BEGIN AFTER CONFIG");
+                    System.out.println("name: " + cmdName);
+                    System.out.println("usage: " + usage);
+                    System.out.println("description: " + description);
+                    System.out.println("permission: " + permission);
+                    System.out.println("aliases: " + aliases.toString());
+                    System.out.println("add perms: " + additionalPerms.toString());
+                    System.out.println("END AFTER CONFIG");
                 }
                 
                 cmd.setAliases(aliases);
@@ -291,6 +300,11 @@ public class CommandManager {
                     cmdList.add(cmd);
                 }
             }
+        }
+        cmdConfig.save();
+        
+        if (secon.isDebugEnabled()) {
+            System.out.println("END CommandManager.registerCommandsFromObject()");
         }
         
         return cmdList;

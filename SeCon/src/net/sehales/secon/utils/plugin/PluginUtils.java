@@ -25,6 +25,7 @@ public class PluginUtils {
             
             switch (plugin.getName()) {
                 case "TagAPI": {
+                    tagAPIUtils.disable();
                     tagAPIUtils = null;
                     break;
                 }

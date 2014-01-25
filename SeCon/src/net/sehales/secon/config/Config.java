@@ -11,13 +11,12 @@ import net.sehales.secon.utils.mc.ChatUtils;
 
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.Configuration;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 public class Config {
     
     protected File              configFile;
-    protected FileConfiguration config;
+    protected YamlConfiguration config;
     protected Configuration     defaultConfig;
     
     public Config(File configFile) {

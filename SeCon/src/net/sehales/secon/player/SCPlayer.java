@@ -8,16 +8,18 @@ import java.util.Map;
 
 public class SCPlayer {
     
-    public static final String  KEY_LAST_IP      = "LAST_IP";
-    public static final String  KEY_LAST_ONLINE  = "LAST_ONLINE";
-    public static final String  KEY_FIRST_ONLINE = "FIRST_ONLINE";
+    public static final String  KEY_LAST_IP        = "LAST_IP";
+    public static final String  KEY_LAST_ONLINE    = "LAST_ONLINE";
+    public static final String  KEY_FIRST_ONLINE   = "FIRST_ONLINE";
+    public static final String  KEY_TAGAPI_PREFIX  = "TAGAPI_PREFIX";
+    public static final String  KEY_TAGAPI_NAMETAG = "TAGAPI_NAMETAG";
     
-    private String              name             = null;
-    private boolean             online           = false;
+    private String              name               = null;
+    private boolean             online             = false;
     
-    private Map<String, String> data             = new HashMap<>();
-    private Map<String, Object> transientData    = new HashMap<>();
-    private List<String>        removedData      = new ArrayList<>();
+    private Map<String, String> data               = new HashMap<>();
+    private Map<String, Object> transientData      = new HashMap<>();
+    private List<String>        removedData        = new ArrayList<>();
     
     protected SCPlayer(String name) {
         this.name = name;

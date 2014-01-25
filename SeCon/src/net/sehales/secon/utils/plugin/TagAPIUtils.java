@@ -4,6 +4,7 @@ package net.sehales.secon.utils.plugin;
 import java.util.Set;
 
 import net.sehales.secon.SeCon;
+import net.sehales.secon.player.SCPlayer;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -16,26 +17,32 @@ public class TagAPIUtils {
     
     public class TagAPIListener implements Listener {
         
-        private TagAPIListener() {
+        TagAPIListener() {
         }
         
         @EventHandler()
         public void onPlayerNameTagReceiveEvent(PlayerReceiveNameTagEvent e) {
             String namedPlayerName = e.getNamedPlayer().getName();
             
-            // rework player api with those values
-            String nametag = null;
-            String prefix = null;
+            SCPlayer scp = SeCon.getInstance().getPlayerManager().getPlayer(e.getPlayer().getName());
+            String nametag = scp.hasData(SCPlayer.KEY_TAGAPI_NAMETAG) ? scp.getValue(SCPlayer.KEY_TAGAPI_NAMETAG) : null;
+            String prefix = scp.hasData(SCPlayer.KEY_TAGAPI_PREFIX) ? scp.getValue(SCPlayer.KEY_TAGAPI_PREFIX) : null;
             
             e.setTag(prefix != null ? prefix : "" + nametag != null ? nametag : namedPlayerName);
         }
     }
     
+    private TagAPIListener listener = new TagAPIListener();
+    
     private TagAPIUtils() { // deny default constructor access
     }
     
     TagAPIUtils(SeCon secon) {
-        Bukkit.getPluginManager().registerEvents(new TagAPIListener(), secon);
+        Bukkit.getPluginManager().registerEvents(listener, secon);
+    }
+    
+    void disable() {
+        PlayerReceiveNameTagEvent.getHandlerList().unregister(listener);
     }
     
     public void refreshPlayer(Player player) {

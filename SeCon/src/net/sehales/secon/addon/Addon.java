@@ -272,13 +272,17 @@ public abstract class Addon {
         return enabled;
     }
     
-    protected abstract void onDisable();
+    protected void onDisable() {
+    }
     
     protected abstract boolean onEnable();
     
-    protected abstract boolean onLoad();
+    protected boolean onLoad() {
+        return true;
+    }
     
-    protected abstract void onUnload();
+    protected void onUnload() {
+    }
     
     protected synchronized boolean registerCommand(Command command) {
         if (commandList.contains(command)) {
