@@ -254,6 +254,10 @@ public class MySQLDatabase extends Database {
             }
         }
         
+        if (values == null) {
+            return stmt;
+        }
+        
         int counter = 1;
         for (Object param : values) {
             try {

@@ -154,6 +154,9 @@ public abstract class Database {
     public abstract boolean isUpdate(String query);
     
     /**
+     * creates a prepared statement and fills in the values for that prepared
+     * statement
+     * 
      * @param statement
      * @param values
      * @return
