@@ -1,6 +1,6 @@
 name: SeCon
 main: net.sehales.secon.SeCon
-version: 1.0.0
+version: ${project.version}
 author: Sehales
 website: http://sehales.net
 #yes I know that SeCon itself isn't using ProtocolLib and Factions....
