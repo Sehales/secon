@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import net.sehales.secon.SeCon;
-import net.sehales.secon.utils.mc.ChatUtils;
+import net.sehales.secon.utils.chat.ChatUtils;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;

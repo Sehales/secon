@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import net.sehales.secon.utils.mc.ChatUtils;
+import net.sehales.secon.utils.chat.ChatUtils;
 import net.sehales.secon.utils.mc.ItemUtils;
 
 import org.bukkit.Material;

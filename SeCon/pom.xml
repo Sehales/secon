@@ -22,6 +22,11 @@
       <id>kitteh-repo</id>
       <url>http://repo.kitteh.org/content/groups/public</url>
     </repository>
+    <repository>
+      <id>comphenix-rep</id>
+      <name>Comphenix Repository</name>
+      <url>http://repo.comphenix.net/content/groups/public</url>
+    </repository>
   </repositories>
 
   <dependencies>
@@ -45,6 +50,11 @@
   	  <artifactId>VanishNoPacket</artifactId>
   	  <version>3.18.8</version>
   	</dependency>
+  	<dependency>
+      <groupId>com.comphenix.protocol</groupId>
+      <artifactId>ProtocolLib</artifactId>
+      <version>3.1.0</version>
+    </dependency>
   	<dependency>
   	  <groupId>com.palmergames</groupId>
   	  <artifactId>Towny</artifactId>

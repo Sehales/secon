@@ -7,7 +7,7 @@ import java.util.List;
 
 import net.sehales.secon.SeCon;
 import net.sehales.secon.itemmenu.MenuItem;
-import net.sehales.secon.utils.mc.ChatUtils;
+import net.sehales.secon.utils.chat.ChatUtils;
 
 import org.bukkit.command.Command;
 import org.bukkit.inventory.ItemStack;

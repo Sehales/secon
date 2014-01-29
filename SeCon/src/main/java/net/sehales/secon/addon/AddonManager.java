@@ -14,7 +14,7 @@ import net.sehales.secon.SeCon;
 import net.sehales.secon.config.LanguageConfig;
 import net.sehales.secon.utils.SimplePriorityList;
 import net.sehales.secon.utils.SimplePriorityList.Priority;
-import net.sehales.secon.utils.mc.ChatUtils;
+import net.sehales.secon.utils.chat.ChatUtils;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
@@ -290,6 +290,7 @@ public class AddonManager {
         }
         priorityList.remove(addon);
         addonMap.remove(addon.getName());
+        addon.getAddonFile().deleteOnExit();
         addon.getAddonFile().delete();
         sendMessage(infoReceiver, lang.ADDON_UNLOADED.replace("<name>", addon.getName()));
         return true;
@@ -330,6 +331,7 @@ public class AddonManager {
         try {
             if (loader != null) {
                 loader.close();
+                loader = null;
             }
         } catch (IOException e) {
             sendMessage(infoReceiver, lang.EXCEPTION_OCCURED.replace("<name>", e.getClass().getSimpleName()));
@@ -338,6 +340,7 @@ public class AddonManager {
         
         System.gc();
         System.gc();
+        addonFolder.delete();
         sendMessage(infoReceiver, lang.ADDON_UNLOADED_ADDONS);
     }
 }

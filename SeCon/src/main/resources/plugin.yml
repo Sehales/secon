@@ -3,7 +3,7 @@ main: net.sehales.secon.SeCon
 version: ${project.version}
 author: Sehales
 website: http://sehales.net
-#yes I know that SeCon itself isn't using ProtocolLib and Factions....
+
 softdepend: [Vault,VanishNoPacket,Towny,Factions,TagAPI,ProtocolLib]
 loadBefore: [mcore]
 commands:

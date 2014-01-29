@@ -16,7 +16,7 @@ import net.sehales.secon.command.SeConCommand;
 import net.sehales.secon.config.LanguageConfig;
 import net.sehales.secon.events.SeConReloadEndEvent;
 import net.sehales.secon.events.SeConReloadStartEvent;
-import net.sehales.secon.utils.mc.ChatUtils;
+import net.sehales.secon.utils.chat.ChatUtils;
 import net.sehales.secon.utils.mc.TextUtils;
 
 import org.bukkit.Bukkit;

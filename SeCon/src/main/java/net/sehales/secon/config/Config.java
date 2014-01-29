@@ -7,7 +7,7 @@ import java.io.InputStream;
 import java.util.List;
 
 import net.sehales.secon.SeCon;
-import net.sehales.secon.utils.mc.ChatUtils;
+import net.sehales.secon.utils.chat.ChatUtils;
 
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.Configuration;

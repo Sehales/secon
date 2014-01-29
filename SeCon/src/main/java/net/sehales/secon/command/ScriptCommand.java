@@ -7,7 +7,7 @@ import javax.script.ScriptException;
 
 import net.sehales.secon.SeCon;
 import net.sehales.secon.utils.MiscUtils;
-import net.sehales.secon.utils.mc.ChatUtils;
+import net.sehales.secon.utils.chat.ChatUtils;
 import net.sehales.secon.utils.mc.ItemUtils;
 import net.sehales.secon.utils.string.StringUtils;
 

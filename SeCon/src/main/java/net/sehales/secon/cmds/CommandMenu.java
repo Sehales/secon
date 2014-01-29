@@ -7,7 +7,7 @@ import net.sehales.secon.SeCon;
 import net.sehales.secon.itemmenu.MenuItem;
 import net.sehales.secon.itemmenu.OptionClickEvent;
 import net.sehales.secon.itemmenu.PagedMenu;
-import net.sehales.secon.utils.mc.ChatUtils;
+import net.sehales.secon.utils.chat.ChatUtils;
 
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;

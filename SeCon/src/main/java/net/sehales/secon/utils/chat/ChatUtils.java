@@ -1,9 +1,11 @@
 
-package net.sehales.secon.utils.mc;
+package net.sehales.secon.utils.chat;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import net.sehales.secon.SeCon;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -167,6 +169,20 @@ public class ChatUtils {
         message = parseMarkupCodes(message);
         
         return message;
+    }
+    
+    /**
+     * 
+     * @return a new JsonMessage object or null ProtocolLib can't be found
+     * @throws UnsupportedOperationException
+     *             if ProtocolLib is not enabled
+     */
+    public static JsonMessage newJsonMessage() throws UnsupportedOperationException {
+        if (SeCon.getInstance().getPluginUtils().isProtocolLibEnabled()) {
+            return new JsonMessage();
+        } else {
+            throw new UnsupportedOperationException("ProtocolLib is not enabled. Can't use json chat format.");
+        }
     }
     
     /**

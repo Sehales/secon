@@ -13,6 +13,7 @@ import org.bukkit.plugin.PluginManager;
 import org.kitteh.tag.TagAPI;
 import org.kitteh.vanish.VanishPlugin;
 
+import com.comphenix.protocol.ProtocolLibrary;
 import com.palmergames.bukkit.towny.Towny;
 
 public class PluginUtils {
@@ -39,6 +40,10 @@ public class PluginUtils {
                 }
                 case "Vault": {
                     vaultUtils = null;
+                    break;
+                }
+                case "ProtocolLib": {
+                    protocolLibUtils = null;
                     break;
                 }
                 default: {
@@ -68,6 +73,10 @@ public class PluginUtils {
                     vaultUtils = new VaultUtils();
                     break;
                 }
+                case "ProtocolLib": {
+                    protocolLibUtils = new ProtocolLibUtils();
+                    break;
+                }
                 default: {
                     break;
                 }
@@ -75,13 +84,14 @@ public class PluginUtils {
         }
     }
     
-    private SeCon         secon;
-    private PluginManager pm;
-    private VaultUtils    vaultUtils;
-    private VanishUtils   vanishUtils;
-    private TownyUtils    townyUtils;
+    private SeCon            secon;
+    private PluginManager    pm;
+    private VaultUtils       vaultUtils;
+    private VanishUtils      vanishUtils;
+    private TownyUtils       townyUtils;
     
-    private TagAPIUtils   tagAPIUtils;
+    private TagAPIUtils      tagAPIUtils;
+    private ProtocolLibUtils protocolLibUtils;
     
     @SuppressWarnings("unused")
     private PluginUtils() {// deny default constructor access
@@ -107,11 +117,19 @@ public class PluginUtils {
             this.tagAPIUtils = new TagAPIUtils(secon);
         }
         
+        if (isProtocolLibEnabled()) {
+            this.protocolLibUtils = new ProtocolLibUtils();
+        }
+        
         pm.registerEvents(new PluginListener(), secon);
     }
     
     public Plugin getPlugin(String pluginName) {
         return pm.getPlugin(pluginName);
+    }
+    
+    public ProtocolLibUtils getProtocolLibUtils() {
+        return protocolLibUtils;
     }
     
     public TagAPIUtils getTagAPIUtils() {
@@ -137,6 +155,11 @@ public class PluginUtils {
     public boolean isPluginEnabled(String pluginName) {
         Plugin plugin = getPlugin(pluginName);
         return plugin != null && plugin.isEnabled();
+    }
+    
+    public boolean isProtocolLibEnabled() {
+        Plugin plugin = getPlugin("ProtocolLib");
+        return isPluginEnabled(plugin) && plugin instanceof ProtocolLibrary;
     }
     
     public boolean isTagAPIEnabled() {
