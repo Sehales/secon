@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>net.sehales</groupId>
   <artifactId>secon</artifactId>
-  <version>1.0.0</version>
+  <version>1.0.0.1</version>
   <name>SeCon</name>
 
   <properties>

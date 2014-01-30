@@ -199,17 +199,17 @@ public class CmdSeCon implements CommandExecutor {
         }
     }
     
-    // private void processAddonMenuCmd(CommandSender sender, String[] args) {
-    // if (hasPermission(sender, "secon.command.secon.addon-menu", true)) {
-    //
-    // }
-    // }
-    
     private void processCommandMenuCmd(CommandSender sender, String[] args) {
         if (hasPermission(sender, "secon.command.secon.command-menu", true)) {
             sender.sendMessage("Sorry, the command menu is currently not available. :(");
         }
     }
+    
+    // private void processAddonMenuCmd(CommandSender sender, String[] args) {
+    // if (hasPermission(sender, "secon.command.secon.addon-menu", true)) {
+    //
+    // }
+    // }
     
     private void processCommandsCmd(CommandSender sender) {
         if (hasPermission(sender, "secon.command.secon.commands", true)) {
