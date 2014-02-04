@@ -15,6 +15,7 @@ import net.sehales.secon.config.LanguageConfig;
 import net.sehales.secon.utils.SimplePriorityList;
 import net.sehales.secon.utils.SimplePriorityList.Priority;
 import net.sehales.secon.utils.chat.ChatUtils;
+import net.sehales.secon.utils.java.FileUtils;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
@@ -50,6 +51,25 @@ public class AddonManager {
     
     public boolean addonsLoaded() {
         return !addonMap.isEmpty();
+    }
+    
+    private void clear(CommandSender infoReceiver) {
+        addonMap.clear();
+        priorityList.clear();
+        addonMap = new HashMap<>();
+        try {
+            if (loader != null) {
+                loader.close();
+                loader = null;
+            }
+        } catch (IOException e) {
+            sendMessage(infoReceiver, lang.EXCEPTION_OCCURED.replace("<name>", e.getClass().getSimpleName()));
+            e.printStackTrace();
+        }
+        
+        System.gc();
+        System.gc();
+        FileUtils.delete(tempFolder);
     }
     
     private Addon createInstance(CommandSender infoReceiver, AddonDescription desc, File file) throws MalformedURLException, ClassNotFoundException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
@@ -207,9 +227,6 @@ public class AddonManager {
             tempFolder.mkdirs();
         }
         
-        // sendMessage(infoReceiver,
-        // lang.ADDON_LOADING_ADDONS.replace("<folder>",
-        // addonFolder.getAbsolutePath()));
         sendMessage(infoReceiver, lang.ADDON_LOADING_ADDONS);
         if (!addonFolder.canRead()) {
             sendMessage(infoReceiver, lang.CANT_READ_FILE.replace("<file>", addonFolder.getAbsolutePath()));
@@ -242,9 +259,6 @@ public class AddonManager {
             enableAddon(infoReceiver, addon);
         }
         
-        // sendMessage(infoReceiver,
-        // lang.ADDON_LOADED_ADDONS.replace("<folder>",
-        // addonFolder.getAbsolutePath()));
         sendMessage(infoReceiver, lang.ADDON_LOADED_ADDONS);
     }
     
@@ -292,8 +306,10 @@ public class AddonManager {
         }
         priorityList.remove(addon);
         addonMap.remove(addon.getName());
-        addon.getAddonFile().deleteOnExit();
-        addon.getAddonFile().delete();
+        
+        if (addonMap.size() == 0) {
+            clear(infoReceiver);
+        }
         sendMessage(infoReceiver, lang.ADDON_UNLOADED.replace("<name>", addon.getName()));
         return true;
     }
@@ -328,21 +344,7 @@ public class AddonManager {
             unloadAddonOnly(infoReceiver, addon);
         }
         
-        addonMap.clear();
-        addonMap = new HashMap<>();
-        try {
-            if (loader != null) {
-                loader.close();
-                loader = null;
-            }
-        } catch (IOException e) {
-            sendMessage(infoReceiver, lang.EXCEPTION_OCCURED.replace("<name>", e.getClass().getSimpleName()));
-            e.printStackTrace();
-        }
-        
-        System.gc();
-        System.gc();
-        addonFolder.delete();
+        clear(infoReceiver);
         sendMessage(infoReceiver, lang.ADDON_UNLOADED_ADDONS);
     }
 }

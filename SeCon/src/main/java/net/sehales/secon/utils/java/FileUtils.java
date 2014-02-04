@@ -81,7 +81,7 @@ public class FileUtils {
     }
     
     /**
-     * deletes a file recursive
+     * deletes a file recursively
      * if the file is a directory it will remove all subdirectories (and files)
      * too
      * 
