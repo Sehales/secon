@@ -88,6 +88,8 @@ public class AddonManager {
             return true;
         }
         
+        addon.unregisterCommands();
+        addon.unregisterListeners();
         addon.onDisable();
         addon.setEnabled(false);
         sendMessage(infoReceiver, lang.ADDON_DISABLED.replace("<name>", addon.getName()));
@@ -302,27 +304,27 @@ public class AddonManager {
     
     public void unloadAddons(CommandSender infoReceiver) {
         sendMessage(infoReceiver, lang.ADDON_UNLOADING_ADDONS);
-        for (Addon addon : priorityList.getHighestElements()) {
+        for (Addon addon : priorityList.getHighestElements().toArray(new Addon[0])) {
             disableAddon(infoReceiver, addon);
         }
         
-        for (Addon addon : priorityList.getHighElements()) {
+        for (Addon addon : priorityList.getHighElements().toArray(new Addon[0])) {
             disableAddon(infoReceiver, addon);
         }
         
-        for (Addon addon : priorityList.getNormalElements()) {
+        for (Addon addon : priorityList.getNormalElements().toArray(new Addon[0])) {
             disableAddon(infoReceiver, addon);
         }
         
-        for (Addon addon : priorityList.getLowElements()) {
+        for (Addon addon : priorityList.getLowElements().toArray(new Addon[0])) {
             disableAddon(infoReceiver, addon);
         }
         
-        for (Addon addon : priorityList.getLowestElements()) {
+        for (Addon addon : priorityList.getLowestElements().toArray(new Addon[0])) {
             disableAddon(infoReceiver, addon);
         }
         
-        for (Addon addon : addonMap.values()) {
+        for (Addon addon : addonMap.values().toArray(new Addon[0])) {
             unloadAddonOnly(infoReceiver, addon);
         }
         

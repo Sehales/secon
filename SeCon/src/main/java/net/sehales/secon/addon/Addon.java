@@ -387,6 +387,7 @@ public abstract class Addon {
     protected synchronized boolean unregisterCommand(Command command) {
         if (commandList.contains(command)) {
             secon.getCommandManager().unregisterCommand(command);
+            commandList.remove(command);
             return true;
         }
         return false;
@@ -395,6 +396,7 @@ public abstract class Addon {
     protected synchronized void unregisterCommands() {
         for (Command cmd : commandList.toArray(new Command[0])) {
             secon.getCommandManager().unregisterCommand(cmd);
+            commandList.remove(cmd);
         }
         
         for (Object obj : objectCommandMap.keySet().toArray(new Object[0])) {

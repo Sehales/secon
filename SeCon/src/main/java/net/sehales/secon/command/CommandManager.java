@@ -29,6 +29,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandMap;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.SimpleCommandMap;
 
 public class CommandManager {
     
@@ -60,7 +61,7 @@ public class CommandManager {
         cmF.setAccessible(true);
         
         bukkitCmdMap = (CommandMap) ReflectionUtils.getDeclaredFieldValue(Bukkit.getServer(), "commandMap");
-        knownCommands = (Map<String, Command>) ReflectionUtils.getDeclaredFieldValue(bukkitCmdMap, "knownCommands");
+        knownCommands = (Map<String, Command>) ReflectionUtils.getDeclaredFieldValue(SimpleCommandMap.class, bukkitCmdMap, "knownCommands");
         
         jsEngine = loadScriptEngine("javascript");
         if (jsEngine == null) {
@@ -322,7 +323,8 @@ public class CommandManager {
                 }
                 
                 for (String alias : cmd.getAliases()) {
-                    if (knownCommands.get(alias).equals(cmd)) {
+                    
+                    if (knownCommands.containsKey(alias) && knownCommands.get(alias).equals(cmd)) {
                         knownCommands.remove(alias);
                     }
                 }

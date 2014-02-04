@@ -113,26 +113,6 @@ public class SeCon extends JavaPlugin {
     
     @Override
     public void onEnable() {
-        this.pluginUtils = new PluginUtils(this);
-        playerManager = new PlayerManager(this);
-        
-        commandManager.loadScriptCommands(scriptFolder);
-        
-        addonManager = new AddonManager(this, addonFolder);
-        addonManager.loadAddons(null);
-        
-        initListener();
-        getCommand("secon").setExecutor(new CmdSeCon(this));
-    }
-    
-    @Override
-    public void onLoad() {
-        secon = this;
-        
-        if (new File(getDataFolder(), "debug.enabled").exists()) {
-            debugEnabled = true;
-        }
-        
         logger = new SeConLogger(this);
         String root = getDataFolder() + File.separator;
         addonFolder = new File(root + "addons");
@@ -142,7 +122,7 @@ public class SeCon extends JavaPlugin {
         saveResource("config.yml", false);
         saveResource("language.yml", false);
         saveResource("items.yml", false);
-        saveResource("addon-commands.yml", false);
+        saveResource("commands.yml", false);
         
         config = new SeConConfig(new File(root + "config.yml"));
         config.load();
@@ -156,7 +136,7 @@ public class SeCon extends JavaPlugin {
         itemConfig.load();
         itemConfig.initValues();
         
-        cmdConfig = new CommandConfig(new File(root + "addon-commands.yml"));
+        cmdConfig = new CommandConfig(new File(root + "commands.yml"));
         cmdConfig.load();
         
         if (debugEnabled) {
@@ -211,5 +191,25 @@ public class SeCon extends JavaPlugin {
         } catch (SecurityException | IllegalArgumentException | NoSuchFieldException | IllegalAccessException e) {
             e.printStackTrace();
         }
+        this.pluginUtils = new PluginUtils(this);
+        playerManager = new PlayerManager(this);
+        
+        commandManager.loadScriptCommands(scriptFolder);
+        
+        addonManager = new AddonManager(this, addonFolder);
+        addonManager.loadAddons(null);
+        
+        initListener();
+        getCommand("secon").setExecutor(new CmdSeCon(this));
+    }
+    
+    @Override
+    public void onLoad() {
+        secon = this;
+        
+        if (new File(getDataFolder(), "debug.enabled").exists()) {
+            debugEnabled = true;
+        }
+        
     }
 }
