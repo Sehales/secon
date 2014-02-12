@@ -124,14 +124,13 @@ public class PlayerManager {
             
             @Override
             public void run() {
-                SCPlayer player = getPlayer(name);
-                
+                SCPlayer player = null;
                 synchronized (lock) {
+                    player = getPlayer(name);
+                    
                     player.setOnline(true);
                     onlinePlayers.put(player.getName(), player);
                 }
-                // player.putData(SCPlayer.KEY_LAST_ONLINE,
-                // System.currentTimeMillis() + "");
                 Bukkit.getPluginManager().callEvent(new PlayerOnlineEvent(player));
             }
             

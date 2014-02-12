@@ -11,8 +11,6 @@ database:
     password: password
 
 support:
-  towny:
-    enabled: false
   mysql:
     enabled: false
 

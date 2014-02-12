@@ -13,7 +13,7 @@ public class SeConConfig extends Config {
     public int     MYSQL_SERVER_PORT;
     public String  MYSQL_SERVER_ADDRESS;
     
-    public boolean SUPPORT_TOWNY_ENABLED;
+    // public boolean SUPPORT_TOWNY_ENABLED;
     public boolean SUPPORT_MYSQL_ENABLED;
     
     public int     CMDMENU_CMDITEM_BUKKIT_ITEM_ID;
@@ -38,7 +38,7 @@ public class SeConConfig extends Config {
         MYSQL_SERVER_PORT = getInt("database.mysql.port");
         MYSQL_SERVER_ADDRESS = getString("database.mysql.address");
         
-        SUPPORT_TOWNY_ENABLED = getBoolean("support.towny.enabled");
+        // SUPPORT_TOWNY_ENABLED = getBoolean("support.towny.enabled");
         SUPPORT_MYSQL_ENABLED = getBoolean("support.mysql.enabled");
         
         CMDMENU_CMDITEM_BUKKIT_ITEM_DAMAGE = getInt("command-menu.cmd-item.bukkit.damage-value");
