@@ -47,6 +47,16 @@ public class PlayerManager {
         }
     }
     
+    public SCPlayer getExistingPlayer(String name) {
+        synchronized (lock) {
+            if (players.containsKey(name)) {
+                return players.get(name);
+            } else {
+                return null;
+            }
+        }
+    }
+    
     public SCPlayer getPlayer(String name) {
         synchronized (lock) {
             if (onlinePlayers.containsKey(name)) {
