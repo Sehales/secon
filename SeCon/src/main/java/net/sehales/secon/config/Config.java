@@ -102,10 +102,14 @@ public class Config {
     }
     
     public List<String> getStringList(String path, List<String> def) {
-        return config.getStringList(path);
+        List<String> list = config.getStringList(path);
+        if (list == null) {
+            return def;
+        }
+        return list;
     }
     
-    // could be overriden to load default values
+    /** could be overriden to load default values */
     public void initValues() {
     }
     

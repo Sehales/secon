@@ -38,6 +38,9 @@ public class MySQLPlayerFactory implements PlayerFactory {
     
     private boolean createDBEntry(SCPlayer player) {
         try {
+            if (CREATE_PLAYER_ENTRY.isClosed()) {
+                init();
+            }
             CREATE_PLAYER_ENTRY.clearParameters();
             CREATE_PLAYER_ENTRY.setString(1, player.getName());
             CREATE_PLAYER_ENTRY.execute();
@@ -124,6 +127,9 @@ public class MySQLPlayerFactory implements PlayerFactory {
         ResultSet result = null;
         boolean success = true;
         try {
+            if (GET_DATA.isClosed()) {
+                init();
+            }
             GET_DATA.clearParameters();
             GET_DATA.setString(1, name);
             

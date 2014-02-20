@@ -21,11 +21,11 @@ public abstract class Database {
                 try {
                     con.close();
                 } catch (Exception e) {
-                    
+                    e.printStackTrace();
                 }
                 connect();
                 return isConnectionValid();
-            } catch (SQLException e) {
+            } catch (Exception e) { // gotta catch 'em all!!!
                 e.printStackTrace();
                 return false;
             }
@@ -136,7 +136,7 @@ public abstract class Database {
     
     public boolean isConnectionValid() {
         try {
-            return con != null ? con.isValid(3) : false;
+            return con != null ? con.isValid(50) : false;
         } catch (SQLException e) {
             return false;
         }

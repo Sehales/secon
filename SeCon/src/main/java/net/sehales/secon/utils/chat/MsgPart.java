@@ -4,20 +4,30 @@ package net.sehales.secon.utils.chat;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.apache.commons.lang.Validate;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 public class MsgPart {
     
-    private String        text;
-    private MsgColor      color;
-    private ClickEvent    clickEvent;
-    private HoverEvent    hoverEvent;
-    private boolean       bold, underlined, italic, strikethrough, obfuscated;
-    private boolean       decorated = true;
-    private List<MsgPart> parts     = new LinkedList<>();
+    public static final int TEXT_JSON  = 0;
+    public static final int TEXT_PLAIN = 1;
+    private int             textType   = TEXT_PLAIN;
+    private String          text       = "";
+    private MsgPart         textPart   = null;
+    private MsgColor        color;
+    private ClickEvent      clickEvent;
+    private HoverEvent      hoverEvent;
+    private boolean         bold, underlined, italic, strikethrough, obfuscated;
+    private boolean         decorated  = true;
+    private List<MsgPart>   parts      = new LinkedList<>();
     
     public MsgPart() {
+    }
+    
+    public MsgPart(MsgPart text) {
+        this.textPart = text;
+        this.textType = TEXT_JSON;
     }
     
     public MsgPart(String text) {
@@ -51,6 +61,14 @@ public class MsgPart {
     
     public String getText() {
         return text;
+    }
+    
+    public MsgPart getTextPart() {
+        return textPart;
+    }
+    
+    public int getTextType() {
+        return textType;
     }
     
     public boolean isBold() {
@@ -113,8 +131,18 @@ public class MsgPart {
         return this;
     }
     
+    public MsgPart setText(MsgPart part) {
+        Validate.notNull(part);
+        this.textPart = part;
+        clickEvent = null;
+        hoverEvent = null;
+        return this;
+    }
+    
     public MsgPart setText(String text) {
+        Validate.notNull(text);
         this.text = text;
+        this.textType = TEXT_PLAIN;
         return this;
     }
     
@@ -127,7 +155,16 @@ public class MsgPart {
     public JSONObject toJson() {
         JSONObject obj = new JSONObject();
         
-        obj.put("text", text);
+        switch (textType) {
+            case TEXT_JSON: {
+                obj.put("text", textPart);
+                break;
+            }
+            case TEXT_PLAIN: {
+                obj.put("text", text);
+                break;
+            }
+        }
         if (decorated) {
             obj.put("bold", bold);
             obj.put("italic", italic);
