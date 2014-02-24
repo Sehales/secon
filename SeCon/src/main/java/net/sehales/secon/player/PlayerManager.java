@@ -108,7 +108,9 @@ public class PlayerManager {
                 SCPlayer scplayer;
                 synchronized (lock) {
                     scplayer = onlinePlayers.remove(player.getName());
-                    
+                    if (scplayer == null) {
+                        getExistingPlayer(player.getName());
+                    }
                     scplayer.putData(SCPlayer.KEY_LAST_ONLINE, System.currentTimeMillis() + "");
                     scplayer.putData(SCPlayer.KEY_LAST_IP, player.getAddress().getHostString());
                     scplayer.setOnline(false);

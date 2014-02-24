@@ -134,8 +134,8 @@ public class MsgPart {
     public MsgPart setText(MsgPart part) {
         Validate.notNull(part);
         this.textPart = part;
-        clickEvent = null;
-        hoverEvent = null;
+        part.setClickEvent(null);
+        part.setHoverEvent(null);
         return this;
     }
     
