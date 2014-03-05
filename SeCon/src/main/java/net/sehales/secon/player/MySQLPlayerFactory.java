@@ -20,10 +20,11 @@ public class MySQLPlayerFactory implements PlayerFactory {
     private SeCon             secon;
     private Database          db;
     private Map<String, Long> playerIds            = new HashMap<String, Long>();
-    private PreparedStatement GET_DATA, CREATE_PLAYER_ENTRY;
     private String            INSERT_DATA;
     private final String      insertValuesTemplate = "('%d',?,?),";
     private String            DELETE_KEYS;
+    private String            dataTable;
+    private String            playerTable;
     
     @SuppressWarnings("unused")
     private MySQLPlayerFactory() {
@@ -38,13 +39,9 @@ public class MySQLPlayerFactory implements PlayerFactory {
     
     private boolean createDBEntry(SCPlayer player) {
         try {
-            if (CREATE_PLAYER_ENTRY.isClosed()) {
-                init();
-            }
-            CREATE_PLAYER_ENTRY.clearParameters();
-            CREATE_PLAYER_ENTRY.setString(1, player.getName());
-            CREATE_PLAYER_ENTRY.execute();
-            ResultSet result = CREATE_PLAYER_ENTRY.getGeneratedKeys();
+            PreparedStatement stmt = prepareCreateStatement(player.getName());
+            stmt.execute();
+            ResultSet result = stmt.getGeneratedKeys();
             result.next();
             playerIds.put(player.getName(), result.getLong(1));
             player.putTransientData("FIRST_CONNECT", true);
@@ -56,12 +53,13 @@ public class MySQLPlayerFactory implements PlayerFactory {
         return true;
     }
     
+    //@formatter:off
     private void init() {
         String dbName = "`" + db.getDatabaseName() + "`";
-        String dataTable = dbName + "." + db.getFormattedTableName("playerdata");
-        String playerTable = dbName + "." + db.getFormattedTableName("players");
+        dataTable = dbName + "." + db.getFormattedTableName("playerdata");
+        playerTable = dbName + "." + db.getFormattedTableName("players");
         
-        //@formatter:off
+        
         db.execute("CREATE TABLE IF NOT EXISTS " + dataTable + " (" + 
                    "`dbId` INT NOT NULL," + 
                    "`key` VARCHAR(45) NOT NULL," + 
@@ -83,42 +81,19 @@ public class MySQLPlayerFactory implements PlayerFactory {
                    "ENGINE=InnoDB CHARSET=utf8;");
         
         
-        try {
-            CREATE_PLAYER_ENTRY = db.getConnection().prepareStatement(
-                                   String.format(
-                                                 "INSERT INTO %1$s (`name`) VALUES (?);" 
-                                                //+  "SELECT LAST_INSERT_ID();"
-                                                                 , playerTable
-                                                 ), Statement.RETURN_GENERATED_KEYS);
-            
-            GET_DATA = db.getConnection().prepareStatement(
-                                   String.format(
-                                                 "SELECT %1$s.`id`," +
-                                                 "%2$s.`key`," + 
-                                                 "%2$s.`value` " + 
-                                                 "FROM %1$s " +
-                                                 "LEFT JOIN %2$s " +
-                                                 "ON %1$s.`id` = %2$s.`dbId` "+
-                                                 "WHERE %1$s.`name` = ?;", playerTable, dataTable
-                                                 ));
-            
-            INSERT_DATA = String.format(
-                                        "INSERT INTO %1$s " +
-                                        "(`dbId`,`key`,`value`)" +
-                                        "VALUES %2$s " +
-                                        "ON DUPLICATE KEY UPDATE `value` = VALUES(`value`)", dataTable,"%s"
-                                        );
-            
-            DELETE_KEYS = String.format(
-                                        "DELETE FROM %1$s " +
-                                        "WHERE `dbId` = ? AND `key` IN (%2$s)", dataTable,"%s"
-                                        );
+        INSERT_DATA = String.format(
+                                    "INSERT INTO %1$s " +
+                                    "(`dbId`,`key`,`value`)" +
+                                    "VALUES %2$s " +
+                                    "ON DUPLICATE KEY UPDATE `value` = VALUES(`value`)", dataTable,"%s"
+                                    );
         
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        //@formatter:on
+        DELETE_KEYS = String.format(
+                                    "DELETE FROM %1$s " +
+                                    "WHERE `dbId` = ? AND `key` IN (%2$s)", dataTable,"%s"
+                                    );
     }
+    //@formatter:on
     
     @Override
     public SCPlayer loadPlayer(String name) throws PlayerLoadException {
@@ -126,38 +101,55 @@ public class MySQLPlayerFactory implements PlayerFactory {
         player = new SCPlayer(name);
         ResultSet result = null;
         boolean success = true;
-        try {
-            if (GET_DATA.isClosed()) {
-                init();
+        if (db.autoReconnect()) {
+            try {
+                synchronized (db.getConnection()) {
+                    result = prepareGetStatement(name).executeQuery();
+                }
+                
+                if (result != null && result.next()) {
+                    playerIds.put(name, result.getLong("id"));
+                    do {
+                        player.putData(result.getString("key"), result.getString("value"));
+                    } while (result.next());
+                } else {
+                    success = createDBEntry(player);
+                }
+            } catch (SQLException e) {
+                success = false;
+                // secon.log().severe("MySQLPlayerFactory",
+                // String.format("Failed to load data for player '%s'!", name));
+                throw new PlayerLoadException(String.format("Failed to load data for player '%s'!", name), e);
             }
-            GET_DATA.clearParameters();
-            GET_DATA.setString(1, name);
-            
-            synchronized (db.getConnection()) {
-                result = GET_DATA.executeQuery();
-            }
-            
-            if (result != null && result.next()) {
-                playerIds.put(name, result.getLong("id"));
-                do {
-                    player.putData(result.getString("key"), result.getString("value"));
-                } while (result.next());
+            if (success) {
+                Bukkit.getPluginManager().callEvent(new PlayerLoadEvent(player));
             } else {
-                success = createDBEntry(player);
+                throw new PlayerLoadException(String.format("Failed to load data for player '%s'!", name));
             }
-        } catch (SQLException e) {
-            success = false;
-            // secon.log().severe("MySQLPlayerFactory",
-            // String.format("Failed to load data for player '%s'!", name));
-            throw new PlayerLoadException(String.format("Failed to load data for player '%s'!", name), e);
-        }
-        if (success) {
-            Bukkit.getPluginManager().callEvent(new PlayerLoadEvent(player));
         } else {
-            throw new PlayerLoadException(String.format("Failed to load data for player '%s'!", name));
+            throw new PlayerLoadException(String.format("Failed to load data for player '%s'. Database.autoReconnect returned false!", player.getName()));
         }
         return player;
     }
+    
+    //@formatter:off
+    private PreparedStatement prepareCreateStatement(String name) {
+        try {
+            PreparedStatement getStmt = db.getConnection().prepareStatement(
+                String.format(
+                "INSERT INTO %1$s (`name`) VALUES (?);" 
+                //+  "SELECT LAST_INSERT_ID();"
+                , playerTable
+                ), Statement.RETURN_GENERATED_KEYS
+            );
+            getStmt.setString(1, name);
+            return getStmt;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    // @formatter:on
     
     // TODO: test it!!!
     private PreparedStatement prepareDataInsertStatement(SCPlayer player) throws SQLException {
@@ -184,6 +176,27 @@ public class MySQLPlayerFactory implements PlayerFactory {
         }
         return stmt;
     }
+    
+    //@formatter:off
+    private PreparedStatement prepareGetStatement(String name) {
+        try {
+            PreparedStatement getStmt = db.getConnection().prepareStatement(String.format(
+                "SELECT %1$s.`id`," +
+                "%2$s.`key`," + 
+                "%2$s.`value` " + 
+                "FROM %1$s " +
+                "LEFT JOIN %2$s " +
+                "ON %1$s.`id` = %2$s.`dbId` "+
+                "WHERE %1$s.`name` = ?;", playerTable, dataTable
+            ));
+            getStmt.setString(1, name);
+            return getStmt;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    //@formatter:on
     
     private PreparedStatement prepareKeyDeleteStatement(SCPlayer player) throws SQLException {
         StringBuilder sb = new StringBuilder();
@@ -215,24 +228,26 @@ public class MySQLPlayerFactory implements PlayerFactory {
             }
         }
         Bukkit.getPluginManager().callEvent(new PlayerSaveEvent(player));
-        
-        try (PreparedStatement saveData = prepareDataInsertStatement(player)) {
-            synchronized (db.getConnection()) {
-                saveData.execute();
-            }
-        } catch (SQLException e) {
-            throw new PlayerSaveException(String.format("Failed to save data for player '%s'", player.getName()));
-        }
-        
-        if (!player.getRemovedDataKeys().isEmpty()) {
-            try (PreparedStatement deleteKeys = prepareKeyDeleteStatement(player)) {
+        if (db.autoReconnect()) {
+            try (PreparedStatement saveData = prepareDataInsertStatement(player)) {
                 synchronized (db.getConnection()) {
-                    deleteKeys.execute();
+                    saveData.execute();
                 }
             } catch (SQLException e) {
-                throw new PlayerSaveException(String.format("Failed to delete obsolete keys for player '%s'. List of obsolete keys: %s", player.getName(), player.getRemovedDataKeys().toString()));
+                throw new PlayerSaveException(String.format("Failed to save data for player '%s'", player.getName()));
             }
+            
+            if (!player.getRemovedDataKeys().isEmpty()) {
+                try (PreparedStatement deleteKeys = prepareKeyDeleteStatement(player)) {
+                    synchronized (db.getConnection()) {
+                        deleteKeys.execute();
+                    }
+                } catch (SQLException e) {
+                    throw new PlayerSaveException(String.format("Failed to delete obsolete keys for player '%s'. List of obsolete keys: %s", player.getName(), player.getRemovedDataKeys().toString()));
+                }
+            }
+        } else {
+            throw new PlayerSaveException(String.format("Failed to save data for player '%s'. Database.autoReconnect returned false!", player.getName()));
         }
-        
     }
 }

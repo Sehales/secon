@@ -7,6 +7,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import net.sehales.secon.SeCon;
+
 public abstract class Database {
     
     public static enum DBType {
@@ -136,8 +138,11 @@ public abstract class Database {
     
     public boolean isConnectionValid() {
         try {
-            return con != null ? con.isValid(50) : false;
+            return con != null && !con.isClosed() && con.isValid(50);
         } catch (SQLException e) {
+            if (SeCon.getInstance().isDebugEnabled()) {
+                e.printStackTrace();
+            }
             return false;
         }
     }
