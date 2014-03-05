@@ -175,6 +175,20 @@ public class SeCon extends JavaPlugin {
             case "mysql": {
                 try {
                     db = new MySQLDatabase(config.MYSQL_SERVER_ADDRESS, config.MYSQL_SERVER_PORT, config.MYSQL_DATABASE_NAME, config.MYSQL_DATABASE_USERNAME, config.MYSQL_DATABASE_PASSWORD, config.MYSQL_TABLE_PREFIX);
+                    getServer().getScheduler().runTaskTimerAsynchronously(this, new Runnable() {
+                        
+                        @Override
+                        public void run() {
+                            synchronized (db) {
+                                try {
+                                    SeCon.getInstance().getSQLDB().executeQuery("SELECT 1;");
+                                } catch (Exception e) {
+                                    SeCon.getInstance().getSQLDB().autoReconnect();
+                                }
+                            }
+                        }
+                        
+                    }, 20 * 60 * 60 * 4, 20 * 60 * 60 * 4);
                 } catch (SQLException e) {
                     log().severe("Database", "Can't connect to mysql database. Not yet configured?");
                     e.printStackTrace();

@@ -59,7 +59,7 @@ public class MySQLPlayerFactory implements PlayerFactory {
         dataTable = dbName + "." + db.getFormattedTableName("playerdata");
         playerTable = dbName + "." + db.getFormattedTableName("players");
         
-        
+        synchronized(db) {
         db.execute("CREATE TABLE IF NOT EXISTS " + dataTable + " (" + 
                    "`dbId` INT NOT NULL," + 
                    "`key` VARCHAR(45) NOT NULL," + 
@@ -79,7 +79,7 @@ public class MySQLPlayerFactory implements PlayerFactory {
 //                     "ON DELETE CASCADE" +
 //                     "ON UPDATE CASCADE)" +
                    "ENGINE=InnoDB CHARSET=utf8;");
-        
+        }
         
         INSERT_DATA = String.format(
                                     "INSERT INTO %1$s " +

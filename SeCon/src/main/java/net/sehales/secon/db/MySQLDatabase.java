@@ -50,7 +50,7 @@ public class MySQLDatabase extends Database {
             return null;
         }
         try {
-            synchronized (con) {
+            synchronized (this) {
                 return con.createStatement();
             }
         } catch (SQLException e) {
@@ -66,7 +66,7 @@ public class MySQLDatabase extends Database {
         }
         try {
             Statement stmt = null;
-            synchronized (con) {
+            synchronized (this) {
                 stmt = con.createStatement();
                 if (isUpdate(query)) {
                     stmt.executeUpdate(query);
@@ -92,7 +92,7 @@ public class MySQLDatabase extends Database {
             return false;
         }
         try {
-            synchronized (con) {
+            synchronized (this) {
                 if (isUpdate(query)) {
                     stmt.executeUpdate();
                 } else {
@@ -117,7 +117,7 @@ public class MySQLDatabase extends Database {
             return null;
         }
         try {
-            synchronized (con) {
+            synchronized (this) {
                 return stmt.executeQuery();
             }
         } catch (SQLException e) {
@@ -136,7 +136,7 @@ public class MySQLDatabase extends Database {
             return -1;
         }
         try {
-            synchronized (con) {
+            synchronized (this) {
                 return stmt.executeUpdate();
             }
         } catch (SQLException e) {
@@ -152,7 +152,7 @@ public class MySQLDatabase extends Database {
         }
         try {
             Statement stmt = null;
-            synchronized (con) {
+            synchronized (this) {
                 stmt = con.createStatement();
                 return stmt.executeQuery(query);
             }
@@ -169,7 +169,7 @@ public class MySQLDatabase extends Database {
         }
         try {
             Statement stmt = null;
-            synchronized (con) {
+            synchronized (this) {
                 stmt = con.createStatement();
                 return stmt.executeUpdate(query);
             }
@@ -245,7 +245,7 @@ public class MySQLDatabase extends Database {
             return null;
         }
         PreparedStatement stmt;
-        synchronized (con) {
+        synchronized (this) {
             try {
                 stmt = con.prepareStatement(statement);
             } catch (SQLException e) {
