@@ -15,7 +15,7 @@ public class MsgPart {
     private int             textType   = TEXT_PLAIN;
     private String          text       = "";
     private MsgPart         textPart   = null;
-    private MsgColor        color;
+    private MsgColor        color      = null;
     private ClickEvent      clickEvent;
     private HoverEvent      hoverEvent;
     private boolean         bold, underlined, italic, strikethrough, obfuscated;

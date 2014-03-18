@@ -64,7 +64,7 @@ public abstract class SeConCommand extends Command {
     @Override
     public boolean execute(CommandSender sender, String label, String[] args) {
         if (!testPermissionSilent(sender)) {
-            sender.sendMessage(SeCon.getInstance().getLang().NO_PERMISSION.replace("<permission>", getPermission() != null ? getPermission() : "op only"));
+            ChatUtils.sendFormattedMessage(sender, SeCon.getInstance().getLang().NO_PERMISSION.replace("<permission>", getPermission() != null ? getPermission() : "op only"));
             return true;
         }
         

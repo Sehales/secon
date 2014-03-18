@@ -259,7 +259,7 @@ public class CommandManager {
                         break;
                 }
                 
-                MethodCommand cmd = new MethodCommand(mch.name(), obj, method);
+                MethodCommand cmd = new MethodCommand(cmdName, obj, method);
                 String tabMethodName = mch.tabExecutorMethod();
                 if (tabMethodName != null && !tabMethodName.isEmpty() && !tabMethodName.equalsIgnoreCase(NO_TAB_METHOD)) {
                     try {
